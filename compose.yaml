@@ -1,0 +1,28 @@
+services:
+  kairos:
+    image: kairos:latest
+    container_name: kairos
+    restart: "no"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    ports:
+      - 8000:8000
+    env_file:
+      - ./env/.env
+    #     depends_on:
+    #       psql:
+    #         condition: service_healthy
+    develop:
+      watch:
+        - action: sync+restart 
+          path: .
+          target: /app
+
+          ignore:
+            - .venv/
+            - __pycache__/
+        
+        - action: rebuild
+          path: ./uv.lock
