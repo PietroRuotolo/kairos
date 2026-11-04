@@ -13,8 +13,7 @@ services:
       - ./env/.env
     depends_on:
       psql:
-        condition: 
-          service_healthy
+        condition: service_healthy
     develop:
       watch:
         - action: sync+restart
@@ -22,11 +21,11 @@ services:
           target: /app
           ignore:
             - .venv/
-            - .evn/
+            - .env/
             - __pycache__/
             - .git/
             - .mypy_cache/
-            - pytest_cache/
+            - .pytest_cache/
             - .ruff_cache/
         - action: rebuild
           path: ./uv.lock
